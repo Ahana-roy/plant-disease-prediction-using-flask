@@ -26,7 +26,7 @@ INIT_LR = 1e-3
 BS = 32
 default_image_size = tuple((256, 256))
 image_size = 0
-directory_root = 'D:/pythonProject/new/Model/Dataset'
+directory_root = 'folder path'
 width = 256
 height = 256
 depth = 3
@@ -178,7 +178,7 @@ scores = model.evaluate(x_test, y_test)
 print(f"Test Accuracy: {scores[1]*100}")
 
 
-model.save('D:/pythonProject/new/deployment/model/plantcnn.h5')
+model.save('path/plantcnn.h5')
 
 
 
