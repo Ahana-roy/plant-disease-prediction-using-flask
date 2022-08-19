@@ -24,7 +24,7 @@ from gevent.pywsgi import WSGIServer
 # Define a flask app
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:post123@localhost/plantai'
+app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres(user):password@localhost/plantai'
 
 
 UPLOAD_FOLDER = 'E:/pythonproject/PlantDiseasePrediction/static/uploads/'
