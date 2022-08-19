@@ -1,0 +1,521 @@
+<!-- <html>
+<head>
+<title>Welcome to PLANTAI</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />        
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+<body> -->
+<style>
+  h1{
+    font-family: 'Anton', sans-serif;
+  }
+
+  h2{
+    text-align: center;
+    font-family: 'Courgette', cursive;
+  }
+  #predict
+  {
+    margin-left:500;
+    
+  }
+  #predict
+  {
+    top:545;
+  }
+  
+  
+</style>
+{% extends "layout.html"%}
+{% block body%}
+{% if session.log %}
+<p><h1 align="center">Upload Your Leaf Image Below:-</h1></p>
+<h2>Select a file to upload</h2>
+ 
+<div class="container">
+<div class="row center">
+    
+    <!-- <p>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+    </p> -->
+    {% if filename %}
+        <div>
+            
+            
+            <img src="{{ url_for('display_image', filename=filename) }}">
+            <!-- <div class="col-md-12 bg-light text-right"> -->
+            <button type="button" class="btn btn-danger" id="predict" onclick="window.location.href='{{ url_for( 'predict_image',filename=filename) }}';">Predict</button>
+          <!-- </div> -->
+
+        
+        
+    {% endif %}
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+        <dl>
+          <br>
+          <br>
+            <p>
+                <input type="file" name="file" class="form-control" autocomplete="off" required>
+            </p>
+        </dl>
+        <p>
+            <button type="submit" value="Submit" id="submitt" class="btn btn-warning">Submit</button>
+        </p>
+        
+        <div id="morse" class="info"></div>
+            <h3>{{result}}</h3>
+    </form>
+  </div>
+    
+</div>
+</div>
+{% if result == 'Pepper__bell___Bacterial_spot'%}
+<div class="col-md-6 col-lg-5 d-none d-md-block" style="position:relative; left:400px">
+<div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-interval="1000">
+        <img src="https://gardenforindoor.com/wp-content/uploads/2021/10/Bacterial-Leaf-Spot-on-Pepper.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item" data-interval="1000">
+        <img src="https://www.growingproduce.com/wp-content/uploads/2016/03/Bacterial-spot-symptoms-on-pepper-leaves-for-web-501x282.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="https://content.peat-cloud.com/w400/bacterial-spot-of-pepper-pepper-1560240277.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  <br>
+  
+  <button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'remedy') }}';">REMEDY</button>
+</div>
+{% endif %}
+
+{% if result == 'Pepper__bell___healthy'%}
+<div class="col-md-6 col-lg-5 d-none d-md-block" style="position:relative; left:400px">
+<div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-interval="1000">
+        <img src="https://peppergeek.com/wp-content/uploads/2020/03/yellow2.jpg.webp" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item" data-interval="1000">
+        <img src="https://www.gardeningknowhow.com/wp-content/uploads/2008/08/pepper.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="https://gardenerspath.com/wp-content/uploads/2018/03/Grow-Crunchy-Sweet-Bell-Peppers-in-Your-Own-Backyard.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  
+</div>
+{% endif %}
+
+{% if result == 'Potato___Early_blight'%}
+<div class="col-md-6 col-lg-5 d-none d-md-block" style="position:relative; left:400px">
+<div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-interval="1000">
+        <img src="https://www.agric.wa.gov.au/sites/gateway/files/alternaria%20%2824%29.JPG" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item" data-interval="1000">
+        <img src="https://candide.com/img/8fdd6da2-35eb-4a4b-b28e-4a92fc365840/cropped/616x493" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="https://i.ytimg.com/vi/2Y77KEYuw_g/maxresdefault.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  <br>
+  
+  <button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'remedy') }}';">REMEDY</button>
+</div>
+{% endif %}
+
+{% if result == 'Potato___Late_blight'%}
+<div class="col-md-6 col-lg-5 d-none d-md-block" style="position:relative; left:400px">
+<div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-interval="1000">
+        <img src="https://www.gardeningknowhow.com/wp-content/uploads/2018/01/potato-late-blight.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item" data-interval="1000">
+        <img src="https://spudsmart.com/wp-content/uploads/2017/05/potato_late-blight_08_zoom-Photo-OMAFRA.jpeg" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="https://spudsmart.com/wp-content/uploads/2017/10/SSF17-10-DSC09990-copy-1000x580.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  <br>
+  
+  <button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'remedy') }}';">REMEDY</button>
+</div>
+{% endif %}
+
+{% if result == 'Potato___healthy'%}
+<div class="col-md-6 col-lg-5 d-none d-md-block" style="position:relative; left:400px">
+<div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-interval="1000">
+        <img src="https://www.gardeningknowhow.com/wp-content/uploads/2013/04/potato-plant.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item" data-interval="1000">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS6Gfx-uJ4UA8cU2qgNMC3j7XuvQlvQTIKkA&usqp=CAU" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="https://img.freepik.com/premium-photo/vitsta-from-potato-plant-leaves_12395-1169.jpg?w=2000" class="d-block w-100" height="400" alt="...">
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  
+</div>
+{% endif %}
+
+
+{% if result == 'Tomato_Bacterial_spot'%}
+<div class="col-md-6 col-lg-5 d-none d-md-block" style="position:relative; left:400px">
+<div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-interval="1000">
+        <img src="https://www.growingproduce.com/wp-content/uploads/2019/08/bacterial_spot_tomato.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item" data-interval="1000">
+        <img src="https://vegcropshotline.org/wp-content/uploads/2016/02/600-100-0.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="https://bsppjournals.onlinelibrary.wiley.com/cms/asset/b52293cc-2ec8-4947-9510-30a45d376cbc/mpp13125-fig-0002-m.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  <br>
+  
+  <button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'remedy') }}';">REMEDY</button>
+</div>
+{% endif %}
+
+{% if result == 'Tomato_Early_blight'%}
+<div class="col-md-6 col-lg-5 d-none d-md-block" style="position:relative; left:400px">
+<div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-interval="1000">
+        <img src="https://blogs.cornell.edu/livegpath/files/2019/09/tomato-early-blight1x2400.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item" data-interval="1000">
+        <img src="https://blogs.cornell.edu/livegpath/files/2021/02/early_blight_leavesx1200.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="https://hort.extension.wisc.edu/files/2014/11/early_blight-285x252.png" class="d-block w-100" height="400" alt="...">
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  <br>
+  
+  <button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'remedy') }}';">REMEDY</button>
+</div>
+{% endif %}
+
+{% if result == 'Tomato_Late_blight'%}
+<div class="col-md-6 col-lg-5 d-none d-md-block" style="position:relative; left:400px">
+<div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-interval="1000">
+        <img src="https://www.gardeners.com/globalassets/articles/gardening/content/7262-drought.jpg?$staticlink$" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item" data-interval="1000">
+        <img src="http://s3-wp-lyleprintingandp.netdna-ssl.com/wp-content/uploads/2019/08/16115617/blight.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="https://www.gardeners.com/globalassets/articles/gardening/hero_thumbnail/5367-early-blight-tomato-leaf.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  <br>
+  
+  <button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'remedy') }}';">REMEDY</button>
+</div>
+{% endif %}
+
+
+{% if result == 'Tomato_Leaf_Mold'%}
+<div class="col-md-6 col-lg-5 d-none d-md-block" style="position:relative; left:400px">
+<div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-interval="1000">
+        <img src="https://blogs.cornell.edu/livegpath/files/2021/02/leaf_mold_tomato3x1200.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item" data-interval="1000">
+        <img src="https://bugwoodcloud.org/images/3072x2048/5591522.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="https://vegcropshotline.org/wp-content/uploads/2021/08/2015-07-08-12.50.07-1152x1536.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  <br>
+  
+  <button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'remedy') }}';">REMEDY</button>
+</div>
+{% endif %}
+
+{% if result == 'Tomato_Septoria_leaf_spot'%}
+<div class="col-md-6 col-lg-5 d-none d-md-block" style="position:relative; left:400px">
+<div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-interval="2000">
+        <img src="https://u.osu.edu/miller.769/files/2020/06/SeptoriaTomatoFRotondo_20Jun2020.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item" data-interval="2000">
+        <img src="http://aggie-horticulture.tamu.edu/vegetable/files/2012/01/septoria.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item" data-interval="2000">
+        <img src="https://ag.umass.edu/sites/ag.umass.edu/files/fact-sheets/images/img_3684_0.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  <br>
+  
+  <button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'remedy') }}';">REMEDY</button>
+</div>
+{% endif %}
+
+{% if result == 'Tomato_Spider_mites_Two_spotted_spider_mite'%}
+<div class="col-md-6 col-lg-5 d-none d-md-block" style="position:relative; left:400px">
+<div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-interval="2000">
+        <img src="http://veggiescout.ca.uky.edu/files/styles/panopoly_image_original/public/30b_spider_mite_damage_on_tomato.jpg?itok=jLIM39zp" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item" data-interval="2000">
+        <img src="https://plantpath.ifas.ufl.edu/u-scout/tomato/images/spider-mite-damage/22161DD2C3964DF39A98F053EB87FBF3/7-22.png" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item" data-interval="2000">
+        <img src="https://kentuckypestnews.files.wordpress.com/2016/07/spider-mites-fig-11.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  <br>
+  
+  <button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'remedy') }}';">REMEDY</button>
+</div>
+{% endif %}
+
+{% if result == 'Tomato__Target_Spot'%}
+<div class="col-md-6 col-lg-5 d-none d-md-block" style="position:relative; left:400px">
+<div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-interval="2000">
+        <img src="https://plantpath.ifas.ufl.edu/u-scout/tomato/images/target-spot/22161DD2C3964DF39A98F053EB87FBF3/3-16_thumb.png" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item" data-interval="2000">
+        <img src="https://www.vegetables.bayer.com/ca/en-ca/resources/agronomic-spotlights/target-spot-of-tomato/_jcr_content/root/responsivegrid/responsivegrid/image.coreimg.png/1629913973797/target-spot1.png" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item" data-interval="2000">
+        <img src="https://www.gardeningknowhow.com/wp-content/uploads/2016/02/target-spot-tomatoes.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  <br>
+
+  <button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'remedy') }}';">REMEDY</button>
+</div>
+{% endif %}
+
+{% if result == 'Tomato__YellowLeaf__Curl_Virus'%}
+<div class="col-md-6 col-lg-5 d-none d-md-block" style="position:relative; left:400px">
+<div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-interval="2000">
+        <img src="https://agriculture.vic.gov.au/__data/assets/image/0017/531602/IU-TYLCV_img_1.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item" data-interval="2000">
+        <img src="https://www.syngenta.co.in/sites/g/files/zhg496/f/styles/syngenta_cta_half_width/public/media/2020/01/27/770x540_yellow_leaf_curl_0.png?itok=40kBQFus" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item" data-interval="2000">
+        <img src="https://www.researchgate.net/profile/Md-Hasan-111/publication/332394778/figure/fig1/AS:747103672340480@1555134804140/Tomato-leaf-curl-symptoms-of-tomato-plants-infected-with-A-ToLCV-BDMym11-B.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  <br>
+  <button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'remedy') }}';">REMEDY</button>
+</div>
+{% endif %}
+
+{% if result == 'Tomato_mosaic_virus'%}
+<div class="col-md-6 col-lg-5 d-none d-md-block" style="position:relative; left:400px">
+<div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-interval="2000">
+        <img src="https://ars.els-cdn.com/content/image/3-s2.0-B9780123877376500029-f02-96-9780123877376.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item" data-interval="2000">
+        <img src="https://u.osu.edu/hightunneldiseasefacts/files/2014/09/Tomato-TMV_ToMV-4-1arftm2.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item" data-interval="2000">
+        <img src="https://sfamjournals.onlinelibrary.wiley.com/cms/asset/a8278444-3232-4e2b-a802-90c5edbe58b2/lam12301-fig-0001-m.png" class="d-block w-100" height="400" alt="...">
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  <br>
+
+  <button type="button" class="btn btn-success" onclick="window.location.href='{{ url_for( 'remedy') }}';">REMEDY</button>
+</div>
+{% endif %}
+
+{% if result == 'Tomato_healthy'%}
+<div class="col-md-6 col-lg-5 d-none d-md-block" style="position:relative; left:400px">
+<div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-interval="2000">
+        <img src="https://b3n8a3n8.rocketcdn.me/wp-content/uploads/2020/07/edible-tomato-leaves.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item" data-interval="2000">
+        <img src="https://b3n8a3n8.rocketcdn.me/wp-content/uploads/2013/08/2013-08-20-02.jpg" class="d-block w-100" height="400" alt="...">
+      </div>
+      <div class="carousel-item" data-interval="2000">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkapqrMl0ru4LHGDGYfjqBjWkqxs9f2_0DRHCDwFP4a6utHMF4ymaKx8_9AbvGaFNxKN8&usqp=CAU" class="d-block w-100" height="400" alt="...">
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  
+</div>
+{% endif %}
+
+{% endif %}
+<br>
+<br>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<!-- </body>
+</html> -->
+
+{% endblock%}
