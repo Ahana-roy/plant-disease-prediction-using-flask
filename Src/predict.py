@@ -21,7 +21,7 @@ def image(path):
     return new_arr
 
 
-model = keras.models.load_model('D:/pythonProject/PlantDiseasePrediction/src/models/plantcnn.h5')
-prediction = model.predict(image('D:/pythonProject/PlantDiseasePrediction/src/inputs/PotatoHealthy.JPG'))
+model = keras.models.load_model('path/plantcnn.h5')
+prediction = model.predict(image('path/inputs/PotatoHealthy.JPG'))
 
 print(CATEGORIES[prediction.argmax()])
