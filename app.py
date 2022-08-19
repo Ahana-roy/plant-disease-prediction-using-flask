@@ -27,7 +27,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres(user):password@localhost/plantai'
 
 
-UPLOAD_FOLDER = 'E:/pythonproject/PlantDiseasePrediction/static/uploads/'
+UPLOAD_FOLDER = 'path/uploads/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 440 * 440
 
@@ -38,7 +38,7 @@ def allowed_file(filename):
 
 
 # Model saved with Keras model.save()
-MODEL_PATH = 'E:/pythonproject/PlantDiseasePrediction/src/models/plantcnn.h5'
+MODEL_PATH = 'path/models/plantcnn.h5'
 
 # Load your trained model
 model = load_model(MODEL_PATH)
